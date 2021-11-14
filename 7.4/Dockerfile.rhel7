@@ -49,7 +49,7 @@ LABEL summary="${SUMMARY}" \
       com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI" \
       help="For more information visit https://github.com/sclorg/s2i-${NAME}-container" \
       usage="s2i build https://github.com/td512/s2i-nginx-php-container.git --context-dir=${PHP_VERSION}/test/test-app td512/${NAME}-NG${NGINX_SHORT_VER}-PHP${PHP_VER_SHORT}-rhel7 sample-server" \
-      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
+      maintainer="Theo M. <theo@theom.nz>"
 
 # Install Apache httpd and PHP
 RUN yum install -y yum-utils && \
@@ -57,7 +57,8 @@ RUN yum install -y yum-utils && \
     INSTALL_PKGS="rh-php74 rh-php74-php rh-php74-php-mysqlnd rh-php74-php-pgsql rh-php74-php-bcmath \
                   rh-php74-php-gd rh-php74-php-intl rh-php74-php-ldap rh-php74-php-mbstring rh-php74-php-pdo \
                   rh-php74-php-process rh-php74-php-soap rh-php74-php-opcache rh-php74-php-xml \
-                  rh-php74-php-gmp rh-php74-php-pecl-apcu nginx" && \
+                  rh-php74-php-gmp rh-php74-php-pecl-apcu nss_wrapper bind-utils gettext hostname rh-nginx${NGINX_SHORT_VER} rh-nginx${NGINX_SHORT_VER}-nginx \
+                  rh-nginx${NGINX_SHORT_VER}-nginx-mod-stream rh-nginx${NGINX_SHORT_VER}-nginx-mod-http-perl" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum -y clean all --enablerepo='*'
